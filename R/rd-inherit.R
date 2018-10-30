@@ -116,7 +116,8 @@ find_params <- function(name, topics) {
 
 topic_params <- function(x) UseMethod("topic_params")
 topic_params.Rd <- function(x) {
-  arguments <- get_tags(x, "\\arguments")[[1]]
+  tags <- get_tags(x, "\\arguments")
+  arguments <- if (length(tags)) tags[[1]] else NULL
   items <- get_tags(arguments, "\\item")
 
   values <- vapply(items, function(x) rd2text(x[[2]]), character(1))
